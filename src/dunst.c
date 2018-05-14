@@ -19,8 +19,6 @@
 #include "queues.h"
 #include "settings.h"
 #include "utils.h"
-#include "x11/screen.h"
-#include "x11/x.h"
 
 #ifndef VERSION
 #define VERSION "version info needed"
@@ -29,7 +27,6 @@
 /* index of colors fit to urgency level */
 
 GMainLoop *mainloop = NULL;
-
 GSList *rules = NULL;
 
 /* misc funtions */
@@ -44,26 +41,26 @@ static gboolean run(void *data)
 {
         LOG_D("RUN");
 
-        bool fullscreen = have_fullscreen_window();
+        bool fullscreen = output->have_fullscreen_window();
 
-        queues_check_timeouts(x_is_idle(), fullscreen);
+        queues_check_timeouts(output->is_idle(), fullscreen);
         queues_update(fullscreen);
 
         static gint64 next_timeout = 0;
 
-        if (!x_win_visible(win) && queues_length_displayed() > 0) {
-                x_win_show(win);
+        if (!output->win_visible(win) && queues_length_displayed() > 0) {
+                output->win_show(win);
         }
 
-        if (x_win_visible(win) && queues_length_displayed() == 0) {
-                x_win_hide(win);
+        if (output->win_visible(win) && queues_length_displayed() == 0) {
+                output->win_hide(win);
         }
 
-        if (x_win_visible(win)) {
+        if (output->win_visible(win)) {
                 draw();
         }
 
-        if (x_win_visible(win)) {
+        if (output->win_visible(win)) {
                 gint64 now = time_monotonic_now();
                 gint64 sleep = queues_get_next_datachange(now);
                 gint64 timeout_at = now + sleep;
