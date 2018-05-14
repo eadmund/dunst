@@ -11,6 +11,8 @@
 #include <glib.h>
 #include <stdbool.h>
 
+#include <src/output.h>
+
 #include "screen.h"
 
 typedef struct _keyboard_shortcut {
@@ -23,15 +25,6 @@ typedef struct _keyboard_shortcut {
 
 // Cyclical dependency
 #include "src/settings.h"
-
-typedef struct window_x11 window_x11;
-
-struct dimensions {
-        int x;
-        int y;
-        int w;
-        int h;
-};
 
 typedef struct _xctx {
         Display *dpy;
@@ -48,16 +41,16 @@ typedef struct _color_t {
 extern xctx_t xctx;
 
 /* window */
-window_x11 *x_win_create(void);
-void x_win_destroy(window_x11 *win);
+window x_win_create(void);
+void x_win_destroy(window);
 
-void x_win_show(window_x11 *win);
-void x_win_hide(window_x11 *win);
+void x_win_show(window);
+void x_win_hide(window);
 
-void x_display_surface(cairo_surface_t *srf, window_x11 *win, const struct dimensions *dim);
+void x_display_surface(cairo_surface_t *srf, window, const struct dimensions *dim);
 
-bool x_win_visible(window_x11 *win);
-cairo_t* x_win_get_context(window_x11 *win);
+bool x_win_visible(window);
+cairo_t* x_win_get_context(window);
 
 /* X misc */
 bool x_is_idle(void);

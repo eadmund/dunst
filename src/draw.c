@@ -29,7 +29,7 @@ typedef struct {
         notification *n;
 } colored_layout;
 
-window_x11 *win;
+window win;
 
 PangoFontDescription *pango_fdesc;
 
