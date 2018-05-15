@@ -25,6 +25,8 @@ struct geometry {
 
 };
 
+const char *notification_colors[3][3];
+
 typedef struct _settings {
         bool print_notifications;
         bool per_monitor_dpi;

@@ -635,6 +635,29 @@ void load_settings(char *cmdline_config_path)
                 "Always run rule-defined scripts, even if the notification is suppressed with format = \"\"."
         );
 
+        notification_colors[ColFG][URG_LOW] = settings.lowfgcolor;
+        notification_colors[ColFG][URG_NORM] = settings.normfgcolor;
+        notification_colors[ColFG][URG_CRIT] = settings.critfgcolor;
+
+        notification_colors[ColBG][URG_LOW] = settings.lowbgcolor;
+        notification_colors[ColBG][URG_NORM] = settings.normbgcolor;
+        notification_colors[ColBG][URG_CRIT] = settings.critbgcolor;
+
+        if (settings.lowframecolor)
+                notification_colors[ColFrame][URG_LOW] = settings.lowframecolor;
+        else
+                notification_colors[ColFrame][URG_LOW] = settings.frame_color;
+        if (settings.normframecolor)
+                notification_colors[ColFrame][URG_NORM] = settings.normframecolor;
+        else
+                notification_colors[ColFrame][URG_NORM] = settings.frame_color;
+        if (settings.critframecolor)
+                notification_colors[ColFrame][URG_CRIT] = settings.critframecolor;
+        else
+                notification_colors[ColFrame][URG_CRIT] = settings.frame_color;
+
+
+
         /* push hardcoded default rules into rules list */
         for (int i = 0; i < G_N_ELEMENTS(default_rules); i++) {
                 rules = g_slist_insert(rules, &(default_rules[i]), -1);

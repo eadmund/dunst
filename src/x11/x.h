@@ -28,7 +28,6 @@ typedef struct _keyboard_shortcut {
 
 typedef struct _xctx {
         Display *dpy;
-        const char *colors[3][3];
         XScreenSaverInfo *screensaver_info;
 } xctx_t;
 
